@@ -20,14 +20,9 @@ const AddCurrScreen = ({ navigation }) => {
 
   const onAddPress = () => {
     setIsError(false);
-    fetchCurrMetricData(crypInput).then((res) => {
-      if (res.status == 404) {
-        setIsError(true);
-      } else {
-        dispatch(addCurrency(res.data.data));
-        navigation.pop();
-      }
-    });
+    dispatch(addCurrency(crypInput)).unwrap();
+
+    navigation.pop();
   };
 
   return (

@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { SwipeListView } from "react-native-swipe-list-view";
-import { removeCurrency } from "../../redux/userSlice";
+import { removeCurrency, updateCurrencies } from "../../redux/userSlice";
 import { useState } from "react";
 
 const FlItem = ({ item }) => {
@@ -34,9 +34,13 @@ export default function Main({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const [refreshing, isRefereshing] = useState(false);
+  const [refreshing, setRefereshing] = useState(false);
 
-  const onRefresh = () => {};
+  const onRefresh = () => {
+    setRefereshing(true);
+    dispatch(updateCurrencies());
+    setRefereshing(false);
+  };
 
   return (
     <View style={styles.container}>
