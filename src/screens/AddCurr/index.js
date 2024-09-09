@@ -7,10 +7,8 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addCurrency } from "../../redux/userSlice";
-import { fetchCurrMetricData } from "../../api";
 
 const AddCurrScreen = ({ navigation }) => {
   const [crypInput, setCrypInput] = useState("");
