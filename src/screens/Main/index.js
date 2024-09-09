@@ -15,15 +15,42 @@ const FlItem = ({ item }) => {
 
   const { price_usd, percent_change_usd_last_24_hours } = market_data;
 
+  const isPosTrend = percent_change_usd_last_24_hours >= 0;
+
   return (
-    <View style={{ flexDirection: "row", backgroundColor: "#fff" }}>
-      <View style={{ flex: 1 }}>
-        <Text>{name}</Text>
-        <Text>{symbol}</Text>
+    <View
+      style={{
+        flexDirection: "column",
+        backgroundColor: "#fff",
+        paddingHorizontal: 20,
+        paddingVertical: 25,
+        bototmBorderWidth: 0.5,
+        rowGap: 5,
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text style={styles.itemTopTextStyling}>{name}</Text>
+        <Text style={styles.itemTopTextStyling}>{`\$${Number(price_usd).toFixed(
+          2
+        )}`}</Text>
       </View>
-      <View style={{ flex: 1, justifyContent: "flex-end" }}>
-        <Text>{`\$${Number(price_usd).toFixed(2)}`}</Text>
-        <Text>{`${Number(percent_change_usd_last_24_hours).toFixed(2)}%`}</Text>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text>{symbol}</Text>
+        <Text style={{ color: isPosTrend ? "green" : "red" }}>{`${
+          isPosTrend ? "\u2191" : "\u2193"
+        }${Number(percent_change_usd_last_24_hours).toFixed(2)}%`}</Text>
       </View>
     </View>
   );
@@ -36,6 +63,8 @@ export default function Main({ navigation }) {
 
   const [refreshing, setRefereshing] = useState(false);
 
+  const [isPos, setIsPos] = useState(false);
+
   const onRefresh = () => {
     setRefereshing(true);
     dispatch(updateCurrencies());
@@ -47,7 +76,7 @@ export default function Main({ navigation }) {
       <SwipeListView
         keyExtractor={(item) => item.id}
         data={cryptoData}
-        style={{ width: "100%", paddingHorizontal: 10 }}
+        style={{ width: "100%" }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
@@ -81,7 +110,9 @@ export default function Main({ navigation }) {
             style={styles.footerStyle}
             onPress={() => navigation.navigate("addCur")}
           >
-            <Text>Add a Cryptocurrency+</Text>
+            <Text style={styles.addCryptoCurrencyStyle}>
+              + Add a Cryptocurrency
+            </Text>
           </TouchableOpacity>
         }
       />
@@ -96,7 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   addCryptoCurrencyStyle: {
-    fontSize: 20,
+    fontSize: 15,
     color: "rgb(63, 86, 114)",
   },
   footerStyle: {
@@ -104,5 +135,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
+  },
+  itemTopTextStyling: {
+    fontWeight: "bold",
   },
 });
