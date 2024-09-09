@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { addCurrency } from "../../redux/userSlice";
+import { addCurrency } from "../redux/userSlice";
 
 const AddCurrScreen = ({ navigation }) => {
   const [crypInput, setCrypInput] = useState("");

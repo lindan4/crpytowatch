@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { SwipeListView } from "react-native-swipe-list-view";
-import { removeCurrency, updateCurrencies } from "../../redux/userSlice";
+import { removeCurrency, updateCurrencies } from "../redux/userSlice";
 import { useState } from "react";
 
 const FlItem = ({ item }) => {
@@ -101,7 +101,7 @@ export default function Main({ navigation }) {
                 dispatch(removeCurrency(data.item.id));
               }}
             >
-              <Text>Delete</Text>
+              <Text style={{ color: "white" }}>Delete</Text>
             </TouchableOpacity>
           </View>
         )}
